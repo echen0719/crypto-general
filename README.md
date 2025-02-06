@@ -1,2 +1,5 @@
-# crypto-general
-Programs and other stuff that I have on the topic of crypto and Bitcoin are here. 
+# Explanation of Files
+
+Bitcoin Puzzle #67 - 1BY8GQbnueYofwSuFAT3USAhGjPrkxDdW9.py
+
+
