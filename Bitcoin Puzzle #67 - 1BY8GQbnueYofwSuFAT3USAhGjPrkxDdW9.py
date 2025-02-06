@@ -1,22 +1,7 @@
 import ecdsa
 import hashlib
 import base58
-from numba import jit
-import numpy as np
-
-@jit(nopython=True)
-def genNum():
-    return np.random.rand()
-
-def address_giver(key_int):
-    sign_key = ecdsa.SigningKey.from_secret_exponent(key_int, curve=ecdsa.SECP256k1)
-    public_key = sign_key.get_verifying_key().to_string("compressed")
-
-    ripemd160 = b"\x00" + hashlib.new('ripemd160', hashlib.sha256(public_key).digest()).digest()
-    checksum = hashlib.sha256(hashlib.sha256(ripemd160).digest()).digest()[:4]
-    address = base58.b58encode(ripemd160 + checksum).decode("utf-8")
-
-    return address
+import random
 
 # 1. Generate private key between low, high + 1
 # 2. Use address_giver to find address
@@ -24,8 +9,14 @@ def address_giver(key_int):
 # 4. Stop loop and save to file called found.txt (if found [which is never])
 
 while True:
-    i = int(genNum() * 73786976294838206465) + 73786976294838206464
-    address = address_giver(i)
+    i = random.randint(73786976294838206464, 147573952589676412929)
+    sign_key = ecdsa.SigningKey.from_secret_exponent(i, curve=ecdsa.SECP256k1)
+    public_key = sign_key.get_verifying_key().to_string("compressed")
+
+    ripemd160 = b"\x00" + hashlib.new('ripemd160', hashlib.sha256(public_key).digest()).digest()
+    checksum = hashlib.sha256(hashlib.sha256(ripemd160).digest()).digest()[:4]
+    address = base58.b58encode(ripemd160 + checksum).decode("utf-8")
+
     print("{}. {}".format(i, address))
 
     if (address == "1BY8GQbnueYofwSuFAT3USAhGjPrkxDdW9"):
