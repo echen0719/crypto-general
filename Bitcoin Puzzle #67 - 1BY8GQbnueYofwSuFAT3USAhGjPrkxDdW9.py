@@ -4,7 +4,7 @@ import base58
 import random
 
 # 1. Generate private key between low, high + 1
-# 2. Use address_giver to find address
+# 2. Convert integer to a public address
 # 3. Check if address is equal to reward wallet
 # 4. Stop loop and save to file called found.txt (if found [which is never])
 
