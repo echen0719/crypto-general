@@ -1,17 +1,11 @@
 # segwit_addr.py from https://github.com/sipa/bech32/blob/master/ref/python/segwit_addr.py
 
 from segwit_addr import * # error? read above in source
+from wif import *
 import ecdsa
 import hashlib
 import base58
 import random
-
-def wif(decimal):
-    hex_value = hex(decimal)[2:]
-    check = "80" + hex_value + "01"
-    checksum = hashlib.sha256(hashlib.sha256(bytes.fromhex(check)).digest()).digest()[:4] # first 8 characters
-    wif = base58.b58encode(bytes.fromhex(check) + checksum).decode("utf-8")
-    return wif
 
 wanted = str(input("What pattern do you want (write bc1qxxxxxx)?: "))[4:]
 
