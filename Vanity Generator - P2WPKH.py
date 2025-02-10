@@ -17,24 +17,27 @@ while True:
     ripemd160 = b"\x00" + hashlib.new("ripemd160", hashlib.sha256(public_key).digest()).digest()
     # removes 0b prefix, takes length, and pads it with 0's so it is 160 characters long
     ripemd160_binary = "0" * (160 - len(bin(int(ripemd160.hex(), 16))[2:])) + bin(int(ripemd160.hex(), 16))[2:]
+    # Converts ripemd160 bytes to int and then binary. 160 minus the length of binary for 0's and then append that to binary without prefix.
 
     data = ""
-    for x in range(0, 160, 5):
-       data += "{:02x}".format(int(ripemd160_binary[x:x+5], 2)) # {:02x} makes sure '00' isn't '0'
-    data = "00" + data
+    for x in range(0, 160, 5): # groups into 5 bits of ints
+       data += "{:02x}".format(int(ripemd160_binary[x:x+5], 2)) # {:02x} makes sure '00' isn't '0', result 64ch
+    data = "00" + data # result 66ch
 
     n_list = []
-    checksum = ""
-    for i in range(0, 66, 2):
-        n_list.append(int(data[i:i+2], 16))
+    for i in range(0, 66, 2): # 33 elements after finish
+        n_list.append(int(data[i:i+2], 16)) # splits data into groups of 2 and converts hex to int and appends each group
     # Calculates the checksum using segwit_addr.py
+
+    checksum = ""
     for x in bech32_create_checksum("bc", n_list, Encoding.BECH32):
         checksum += "{:02x}".format(x)
-    new_data = data + checksum
+    new_data = data + checksum # data + checksum
 
     f_list = []
-    for i in range(0, 78, 2):
-        f_list.append(int(new_data[i:i+2], 16))
+    for i in range(0, 78, 2): # 39 elements after finish
+        f_list.append(int(new_data[i:i+2], 16)) # splits new_data into groups of 2 and converts hex to int and appends each group
+
     # Calculates the address using segwit_addr.py
     address = bech32_encode("bc", f_list, Encoding.BECH32M)[:-6]
 
