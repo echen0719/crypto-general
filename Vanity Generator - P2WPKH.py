@@ -14,13 +14,13 @@ while True:
     sign_key = ecdsa.SigningKey.from_secret_exponent(private_key_decimal, curve=ecdsa.SECP256k1)
     public_key = sign_key.get_verifying_key().to_string("compressed")
     # takes sha256 of public_key then ripemd160 of that
-    ripemd160 = b"\x00" + hashlib.new('ripemd160', hashlib.sha256(public_key).digest()).digest()
+    ripemd160 = b"\x00" + hashlib.new("ripemd160", hashlib.sha256(public_key).digest()).digest()
     # removes 0b prefix, takes length, and pads it with 0's so it is 160 characters long
     ripemd160_binary = "0" * (160 - len(bin(int(ripemd160.hex(), 16))[2:])) + bin(int(ripemd160.hex(), 16))[2:]
 
     data = ""
     for x in range(0, 160, 5):
-       data += '{:02x}'.format(int(ripemd160_binary[x:x+5], 2)) # {:02x} makes sure '00' isn't '0'
+       data += "{:02x}".format(int(ripemd160_binary[x:x+5], 2)) # {:02x} makes sure '00' isn't '0'
     data = "00" + data
 
     n_list = []
@@ -29,7 +29,7 @@ while True:
         n_list.append(int(data[i:i+2], 16))
     # Calculates the checksum using segwit_addr.py
     for x in bech32_create_checksum("bc", n_list, Encoding.BECH32):
-        checksum += format(x, "02x")
+        checksum += "{:02x}".format(x)
     new_data = data + checksum
 
     f_list = []
@@ -40,6 +40,6 @@ while True:
 
     if (address.startswith("bc1q" + wanted)):
         with open("found.txt", "a") as found:
-            found.write("\n{}. {}".format(wif(private_key_decimal), address))
+            found.write("{}. {}\n".format(wif(private_key_decimal), address))
         print("{}. {}".format(wif(private_key_decimal), address))
-        break
+        break # comment out if you want multiple

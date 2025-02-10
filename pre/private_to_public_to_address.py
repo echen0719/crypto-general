@@ -11,7 +11,7 @@ def address_giver(key_int):
     # learning about how btc works and spending 5 hours on researching and coding this blew my mind
     public_key_bytes = bytes.fromhex(public_key)
     # takes sha256 of public key, then ripemd-160 on that output and appends "00"
-    ripemd160 = "00" + hashlib.new('ripemd160', hashlib.sha256(public_key_bytes).digest()).hexdigest() # what is ripemd-160?
+    ripemd160 = "00" + hashlib.new("ripemd160", hashlib.sha256(public_key_bytes).digest()).hexdigest() # what is ripemd-160?
     checksum = (hashlib.sha256(hashlib.sha256(bytes.fromhex(ripemd160)).digest())).hexdigest() # does double sha256 on ripemd160
     address = base58.b58encode(bytes.fromhex(ripemd160) + bytes.fromhex(checksum[:8])).decode("utf-8")
     # encodes using b58 of ripemd160 and last 8 characters of checksum
