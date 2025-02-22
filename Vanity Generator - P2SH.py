@@ -16,13 +16,13 @@ while True:
     # https://secretscan.org/PrivateKeySegwit
 
     # sha256 hash the public key, then ripemd160, then adds 0014 to beginning
-    ripemd160 = b"\x00\x14" + hashlib.new("ripemd160", hashlib.sha256(public_key).digest()).digest()
+    result_one = b"\x00\x14" + hashlib.new("ripemd160", hashlib.sha256(public_key).digest()).digest()
     # sha256 hash the previous variable, then ripemd160 again, and then add 05 to beginning
-    ripemd160_two = b"\x05" + hashlib.new("ripemd160", hashlib.sha256(ripemd160).digest()).digest()
+    result_two = b"\x05" + hashlib.new("ripemd160", hashlib.sha256(result_one).digest()).digest()
 
-    # takes a double sha256 on ripemd160_two and then takes first 4 bytes (8 characters)
-    double_sha = hashlib.sha256(hashlib.sha256(ripemd160_two).digest()).digest()[:4]
-    address = base58.b58encode(ripemd160_two + double_sha).decode("utf-8") # combine both variables and encodes to utf
+    # takes a double sha256 on result_two and then takes first 4 bytes (8 characters)
+    double_sha = hashlib.sha256(hashlib.sha256(result_two).digest()).digest()[:4]
+    address = base58.b58encode(result_two + double_sha).decode("utf-8") # combine both variables and encodes to utf
 
     print("{}. {}".format(private_key_decimal, address))
 

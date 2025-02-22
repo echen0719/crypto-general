@@ -13,9 +13,9 @@ while True:
     sign_key = ecdsa.SigningKey.from_secret_exponent(i, curve=ecdsa.SECP256k1)
     public_key = sign_key.get_verifying_key().to_string("compressed")
 
-    ripemd160 = b"\x00" + hashlib.new("ripemd160", hashlib.sha256(public_key).digest()).digest()
-    checksum = hashlib.sha256(hashlib.sha256(ripemd160).digest()).digest()[:4]
-    address = base58.b58encode(ripemd160 + checksum).decode("utf-8")
+    result = b"\x00" + hashlib.new("ripemd160", hashlib.sha256(public_key).digest()).digest()
+    checksum = hashlib.sha256(hashlib.sha256(result).digest()).digest()[:4]
+    address = base58.b58encode(result + checksum).decode("utf-8")
 
     print("{}. {}".format(i, address))
 
