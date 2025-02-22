@@ -55,6 +55,36 @@ Helpful diagram for visulation: (https://i.sstatic.net/AcXYt.png)
 <br> **Step 3**: ripemd160 = ripemd160(sha256(public_key)) = b'\x00{\xee\xecd|_{\x8b\t\n\xfb;\xb6\xb6\xbaV\xfc*\xfc\xb7' </br>
 <br> **Step 4**: checksum = sha256(sha256(ripemd160))[:4] = b'\xaa[[4' </br>
 <br> **Step 5**: address = base58encode(ripemd160 + checksum) = 1CJJLHWKrVUBrRkLuVbsUEenjFk8pqRmxo </br>
-<br> **Step 6**: `138583296239394589403. 1CJJLHWKrVUBrRkLuVbsUEenjFk8pqRmxo`, then repeat </br>
+<br> **Step 6**: 138583296239394589403. 1CJJLHWKrVUBrRkLuVbsUEenjFk8pqRmxo, then repeat </br>
 
 ### Bitcoin Puzzle #135 - 16RGFo6hjq9ym6Pj7N5H7L1NR1rVPJyw2v.py
+Similar story to puzzle #67. I found that puzzle #135 was a popular puzzle for people to attempt with 135 bits of entropy from 2<sup>134</sup> to 2<sup>13</sup>. However, I don't understand the Bitcoin ecliptic curve yet so I don't know how to use Kangaroo or BSGS (baby step, giant step) algorithms to solve it. I basically used the same code from #67 to made this. The only difference is that the public key is already avaliable.
+
+**Step 1**: Generate a random number between 2<sup>134</sup> and 2<sup>135</sup>.
+
+```
+i = random.randint(21778071482940061661655974875633165533184, 43556142965880123323311949751266331066367)
+```
+
+**Step 2**: Get the public key (in bytes) from the private key using the [SECP256K1 graph](https://ecdsa.readthedocs.io/en/latest/ecdsa.keys.html).
+
+```
+sign_key = ecdsa.SigningKey.from_secret_exponent(i, curve=ecdsa.SECP256k1)
+public_key = sign_key.get_verifying_key().to_string("compressed")
+```
+
+**Step 3**: Prints the public key and then checks if the key is equal to the target. If so, it adds it to a file.
+
+```
+print("{}. {}".format(i, public_key))
+
+    if (public_key == "02145d2611c823a396ef6712ce0f712f09b9b4f3135e3e0aa3230fb9b6d08d1e16"):
+        with open("found.txt", "a") as file:
+            file.write("{}. {} ({})".format(i, address, hex(i)))
+        break
+```
+
+<br>**Exmaple Execution**</br>
+<br> **Step 1**: i = 28103724769903762385746599697081239237441 </br>
+<br> **Step 2**: public_key = 032b7d5bd3894c5cadb3e22e5f28178a56cb9cba28185b04980978a956b3859125 </br>
+<br> **Step 3**: 28103724769903762385746599697081239237441. 032b7d5bd3894c5cadb3e22e5f28178a56cb9cba28185b04980978a956b3859125, then repeat </br>
