@@ -1,7 +1,7 @@
 # segwit_addr.py from https://github.com/sipa/bech32/blob/master/ref/python/segwit_addr.py
 
 from segwit_addr import * # error? read above in source
-from wif import *
+from wif import * # download wif.py as well or include it manually in this program
 import ecdsa
 import hashlib
 import base58
