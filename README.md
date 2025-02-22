@@ -2,8 +2,10 @@ I have always been interested in cryptocurrency and cryptography since I was you
 
 ## Explaination of Files
 
-### Bitcoin Puzzle #67 - 1BY8GQbnueYofwSuFAT3USAhGjPrkxDdW9.py
-I looked at puzzles I could attempt and found puzzle #67 which had 67 bits of entropy or in other words, was in the range from 2<sup>66</sup> to 2<sup>77</sup>. The program I made is really simple but did take me sometime to understand how to use the ecdsa, hashlib, and base58 libraries. I used help from online through documentation and Reddit to make this. This is made only for P2PKH wallets within this range.
+<details>
+
+<summary>Bitcoin Puzzle #67 - 1BY8GQbnueYofwSuFAT3USAhGjPrkxDdW9.py</summary>
+<br>I looked at puzzles I could attempt and found puzzle #67 which had 67 bits of entropy or in other words, was in the range from 2<sup>66</sup> to 2<sup>77</sup>. The program I made is really simple but did take me sometime to understand how to use the ecdsa, hashlib, and base58 libraries. I used help from online through documentation and Reddit to make this. This is made only for P2PKH wallets within this range. </br>
 
 **Step 1**: Generate a random number between 2<sup>66</sup> and 2<sup>67</sup>.
 
@@ -57,8 +59,13 @@ Helpful diagram for visulation: (https://i.sstatic.net/AcXYt.png)
 <br> **Step 5**: address = base58encode(result + checksum) = 1CJJLHWKrVUBrRkLuVbsUEenjFk8pqRmxo </br>
 <br> **Step 6**: ```138583296239394589403. 1CJJLHWKrVUBrRkLuVbsUEenjFk8pqRmxo```, then repeat </br>
 
-### Bitcoin Puzzle #135 - 16RGFo6hjq9ym6Pj7N5H7L1NR1rVPJyw2v.py
-Similar story to puzzle #67. I found that puzzle #135 was a popular puzzle for people to attempt with 135 bits of entropy from 2<sup>134</sup> to 2<sup>13</sup>. However, I don't understand the Bitcoin ecliptic curve yet so I don't know how to use Kangaroo or BSGS (baby step, giant step) algorithms to solve it. I basically used the same code from #67 to made this. The only difference is that the public key is already avaliable.
+</details>
+
+<details>
+
+<summary>Bitcoin Puzzle #135 - 16RGFo6hjq9ym6Pj7N5H7L1NR1rVPJyw2v.py</summary>
+
+<br>Similar story to puzzle #67. I found that puzzle #135 was a popular puzzle for people to attempt with 135 bits of entropy from 2<sup>134</sup> to 2<sup>13</sup>. However, I don't understand the Bitcoin ecliptic curve yet so I don't know how to use Kangaroo or BSGS (baby step, giant step) algorithms to solve it. I basically used the same code from #67 to made this. The only difference is that the public key is already avaliable. </br>
 
 **Step 1**: Generate a random number between 2<sup>134</sup> and 2<sup>135</sup>.
 
@@ -89,8 +96,13 @@ print("{}. {}".format(i, public_key))
 <br> **Step 2**: public_key = 032b7d5bd3894c5cadb3e22e5f28178a56cb9cba28185b04980978a956b3859125 </br>
 <br> **Step 3**: ```28103724769903762385746599697081239237441. 032b7d5bd3894c5cadb3e22e5f28178a56cb9cba28185b04980978a956b3859125```, then repeat </br>
 
-### Vanity Generator - P2SH.py
-P2SH (Pay to Script Hash) is a popular Bitcoin address type. A quarter of all Bitcoin are stored in these addresses. These addresses always start with a 3 and are encoded in Base58 which means vanity address are possible. So, it is possible to convert an integer from 0 to 2<sup>256</sup> into one of these addresses and then into a Wallet Import Format. 
+</details>
+
+<details>
+
+<summary>Vanity Generator - P2SH.py</summary>
+
+<br>P2SH (Pay to Script Hash) is a popular Bitcoin address type. A quarter of all Bitcoin are stored in these addresses. These addresses always start with a 3 and are encoded in Base58 which means vanity address are possible. So, it is possible to convert an integer from 0 to 2<sup>256</sup> into one of these addresses and then into a Wallet Import Format. </br>
 
 **Step 1**: Prompts user for a pattern they want in the format of 3xxxxxx.
 
@@ -156,3 +168,5 @@ print("{}. {}".format(private_key_decimal, address))
 <br> **Step 6**: checksum = sha256(sha256(result_two))[:4] = b'\xac\x9d\x15x'</br>
 <br> **Step 7**: address = base58encode(result_two + checksum) = 3NYBZ7XSH2WR4EmpyxwWWjufv4uaHCi25M </br>
 <br> **Step 8**: ```85441557252791501953011245756207152215152197022773595262379450122289495056139. 3NYBZ7XSH2WR4EmpyxwWWjufv4uaHCi25M```, then repeat </br>
+
+</details>
