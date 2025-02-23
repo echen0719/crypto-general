@@ -9,7 +9,7 @@ import random
 # 4. Stop loop and save to file called found.txt (if found [which is never])
 
 while True:
-    i = random.randint(73786976294838206464, 147573952589676412929)
+    i = random.randint(147573952589676412928,  295147905179352825856)
     sign_key = ecdsa.SigningKey.from_secret_exponent(i, curve=ecdsa.SECP256k1)
     public_key = sign_key.get_verifying_key().to_string("compressed")
 
@@ -19,7 +19,7 @@ while True:
 
     print("{}. {}".format(i, address))
 
-    if (address == "1BY8GQbnueYofwSuFAT3USAhGjPrkxDdW9"):
+    if (address == "1MVDYgVaSN6iKKEsbzRUAYFrYJadLYZvvZ"):
         with open("found.txt", "a") as file:
             file.write("{}. {} ({})".format(i, address, hex(i)))
         break
