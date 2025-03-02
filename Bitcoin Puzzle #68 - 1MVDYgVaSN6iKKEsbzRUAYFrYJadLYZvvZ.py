@@ -8,7 +8,7 @@ import random
 # 3. Check if address is equal to reward wallet
 # 4. Stop loop and save to file called found.txt (if found [which is never])
 
-while False:
+while True:
     i = random.randint(147573952589676412928,  295147905179352825856)
     sign_key = ecdsa.SigningKey.from_secret_exponent(i, curve=ecdsa.SECP256k1)
     public_key = sign_key.get_verifying_key().to_string("compressed")
@@ -23,14 +23,6 @@ while False:
         with open("found.txt", "a") as file:
             file.write("{}. {} ({})".format(i, address, hex(i)))
         break
-
-def ecdsa_test():
-    pmod = 115792089237316195423570985008687907853269984665640564039457584007908834671663
-    a = 0  # y^2 = x^3 + 7
-    b = 7  # y^2 = x^3 + 7
-    Gx = 55066263022277343669578718895168534326250603453777594175500187360389116729240
-    Gy = 32670510020758816978083085130507043184471273380659243275938904335757337482424
-    n = 115792089237316195423570985008687907852837564279074904382605163141518161494337
 
     # I have to start from elementary and learn mod
 
